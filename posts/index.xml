@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Milezoom&#39;s Blog</title>
-    <link>milezoom.github.io/posts/</link>
+    <link>/posts/</link>
     <description>Milezoom&#39;s Blog (Posts)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 19 Dec 2020 13:52:47 +0700</lastBuildDate>
     
-    <atom:link href="milezoom.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Init Blog</title>
-      <link>milezoom.github.io/posts/init-blog/</link>
+      <link>/posts/init-blog/</link>
       <pubDate>Sat, 19 Dec 2020 13:52:47 +0700</pubDate>
       
-      <guid>milezoom.github.io/posts/init-blog/</guid>
+      <guid>/posts/init-blog/</guid>
       <description>&lt;h3 id=&#34;hello-world-&#34;&gt;Hello World !&lt;/h3&gt;
 &lt;p&gt;hi, this is initial post to ensure this blog deployed correctly&lt;/p&gt;
 &lt;p&gt;for the content, will be added more later&lt;/p&gt;

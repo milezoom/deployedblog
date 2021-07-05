@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+
+    
+
+<html lang="en-us" data-theme="dark">
+<head>
+    
+        
+<meta charset="utf-8">
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer-when-downgrade">
+
+<title>Docker Go Dev Env - Milezoom&#39;s Blog</title>
+<meta name="description" content="my thoughts, written on code">
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="favicon.png">
+
+
+
+    
+
+
+
+
+
+    
+    
+    
+
+    
+        <link rel="stylesheet" href="/css/style.b6a0d5a8bf2c050cb1f2ba408559890eef499aacdf95fed7bf8e27b6b4e97d8d.css" integrity="sha256-tqDVqL8sBQyx8rpAhVmJDu9Jmqzflf7Xv44ntrTpfY0=">
+    
+
+
+
+
+
+    
+
+
+
+
+
+    
+        <link rel="stylesheet" href="css/my.css?rnd=1625482828">
+    
+
+
+
+
+    
+
+
+
+
+
+    
+        <script src="js/main.js?rnd=1625482828" type="text/javascript" charset="utf-8"></script>
+    
+
+
+<meta property="og:title" content="Docker Go Dev Env" />
+<meta property="og:description" content="Docker is very helpful when you need specific development environtment. Also if you don&rsquo;t want your OS become &ldquo;dirty&rdquo; because too many package installed. For my case, I use docker container to isolate environment to develop golang application. Then I use vscode remote to do coding inside the container. Here how I setup my golang dev env.
+1. Creating Dockerfile To create container containing golang, I use base image minideb from bitnami, that based on debian." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/docker-go-dev-env/" /><meta property="og:image" content="images/og-featured.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-07-05T08:22:35+00:00" />
+<meta property="article:modified_time" content="2021-07-05T08:22:35+00:00" />
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="images/og-featured.png"/>
+
+<meta name="twitter:title" content="Docker Go Dev Env"/>
+<meta name="twitter:description" content="Docker is very helpful when you need specific development environtment. Also if you don&rsquo;t want your OS become &ldquo;dirty&rdquo; because too many package installed. For my case, I use docker container to isolate environment to develop golang application. Then I use vscode remote to do coding inside the container. Here how I setup my golang dev env.
+1. Creating Dockerfile To create container containing golang, I use base image minideb from bitnami, that based on debian."/>
+
+
+
+
+
+
+
+
+
+    
+</head>
+<body>
+    <a class="skip-main" href="#main">Skip to main content</a>
+    <div class="container">
+        <header class="common-header"> 
+            
+                <h1 class="site-title">
+    <a href="/">Milezoom&#39;s Blog</a>
+</h1>
+
+    <nav>
+        
+        
+        <a class="" href="posts/" title="Archive">Archive</a>
+        
+    </nav>
+
+
+            
+        </header>
+        <main id="main" tabindex="-1"> 
+            
+    
+    
+    <article class="post">
+        <header class="post-header">
+            <h1 class="post-title">Docker Go Dev Env</h1>
+        </header>
+        <div class="content">
+            <p>Docker is very helpful when you need specific development environtment.
+Also if you don&rsquo;t want your OS become &ldquo;dirty&rdquo; because too many package installed.
+For my case, I use docker container to isolate environment to develop golang application.
+Then I use vscode remote to do coding inside the container. Here how I setup my golang dev env.</p>
+<h2 id="1-creating-dockerfile">1. Creating Dockerfile</h2>
+<p>To create container containing golang, I use base image minideb from bitnami, that based on debian.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> bitnami/minideb as builder</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> apt-get -y update <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    apt-get -y install apt-utils iproute2 curl git login unzip procps build-essential <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    curl -L -o /tmp/gosetup.tar.gz https://golang.org/dl/go1.16.5.linux-amd64.tar.gz <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    tar -C /usr/local -xzf /tmp/gosetup.tar.gz <span style="color:#f92672">&amp;&amp;</span> rm /tmp/gosetup.tar.gz <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    export PATH<span style="color:#f92672">=</span>$PATH:/usr/local/go/bin:/root/.go/bin <span style="color:#f92672">&amp;&amp;</span> export GOPATH<span style="color:#f92672">=</span>/root/.go <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    mkdir -p /app<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>PATH<span style="color:#e6db74">}</span><span style="color:#e6db74">:/usr/local/go/bin:/root/.go/bin&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> GOPATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.go&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /app</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> tail -f /dev/null<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>Using script above, also installed several useful tools like <code>curl</code>, <code>git</code>, <code>zip</code>, and <code>build-tools</code>.
+Because I need version 1.16 and default version in os is 1.13, so I need to manually download from official golang site.
+I set my <code>GOPATH</code> at <code>/root/.go</code> and my <code>WORKDIR</code> (place to store my code) at <code>/app</code>.
+And finally I run <code>tail</code> at <code>/dev/null</code> to make container run forever.</p>
+<h2 id="2-creating-docker-compose-file">2. Creating docker-compose file</h2>
+<p>Then after Dockerfile created, I create <code>docker-compose.yml</code> file.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">version: <span style="color:#e6db74">&#34;3&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>services:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    golang:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        build:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>            context: .<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>            dockerfile: Dockerfile<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        image: golang:1.0.0<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        container_name: golang<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        volumes:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>            - golang-data:/app<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>volumes:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    golang-data:<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>For the container, I use docker volume that mounted to <code>/app</code> directory for data persistence.
+Put both files in one directory, then run <code>docker-compose up -d</code> to build and start the container.</p>
+<h2 id="3-connect-vscode-to-container">3. Connect VSCode to Container</h2>
+<p>To connect vscode to container, use these extension:</p>
+<ul>
+<li>Remote - Container (<a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers">link</a>).</li>
+<li>Docker (<a href="https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker">link</a>) (sometimes proper setup needed for this ext).</li>
+</ul>
+<p>Then click remote connection button at bottom left, then select <strong>Attach to Running Container&hellip;</strong><br>
+A new window will open, and directory <code>/app</code> (according to specified <code>WORKDIR</code>) will be ready in file explorer.
+And for the integrated terminal, also mapped directly to <code>/app</code> directory.
+That&rsquo;s all, you can start code inside container using go SDK in the container from vscode.</p>
+
+        </div>
+        
+
+    
+
+
+<div class="post-info">
+    
+        <div class="post-date">2021-07-05</div>
+    
+    <div class="post-taxonomies">
+        
+            
+    </div>
+</div>
+
+    </article>
+
+    
+        
+    <div class="pagination post-pagination">
+        <div class="left pagination-item disabled">
+            
+        </div>
+        <div class="right pagination-item ">
+            
+                <a href="/posts/init-blog/">Init Blog</a>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+
+        </main>
+        
+            <footer class="common-footer">
+    
+    
+
+    <div class="common-footer-bottom">
+        
+        <div class="copyright">
+            <p>© milezoom, 2021<br>
+            Powered by <a target="_blank" rel="noopener noreferrer" href="https://gohugo.io/">Hugo</a>, theme <a target="_blank" rel="noopener noreferrer" href="https://github.com/mitrichius/hugo-theme-anubis">Anubis</a>.
+            </p>  
+        </div> 
+
+        
+
+    
+
+
+   
+    </div>
+</footer>
+
+        
+    </div>
+</body>
+</html>

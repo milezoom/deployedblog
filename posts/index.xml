@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Milezoom&#39;s Ideas</title>
+    <link>https://milezoom.github.io/posts/</link>
+    <description>Recent content in Posts on Milezoom&#39;s Ideas</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Milezoom</copyright>
+    <lastBuildDate>Sun, 03 Jul 2022 15:05:40 +0700</lastBuildDate><atom:link href="https://milezoom.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Develop Env in Container</title>
+      <link>https://milezoom.github.io/posts/develop-env-in-container/</link>
+      <pubDate>Sun, 03 Jul 2022 15:05:40 +0700</pubDate>
+      
+      <guid>https://milezoom.github.io/posts/develop-env-in-container/</guid>
+      <description>Docker is very helpful when you need specific development environtment. Also if you don&amp;rsquo;t want your OS become &amp;ldquo;dirty&amp;rdquo; because too many package installed. For my case, I use docker container to isolate environment to develop golang application. Then I use vscode remote to do coding inside the container. Here how I setup my golang dev env.
+Dockerfile To create container containing golang, I use base image minideb from bitnami, that based on debian.</description>
+    </item>
+    
+  </channel>
+</rss>
